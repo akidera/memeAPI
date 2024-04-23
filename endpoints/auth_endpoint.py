@@ -10,7 +10,7 @@ class GetAuthToken(BaseEdpoint):
 
     @allure.step('Get token')
     def get_token(self, auth_body=None):
-        auth_body = auth_body if auth_body else GetAuthToken.auth_body
+        auth_body = auth_body if auth_body else self.auth_body
         self.response = requests.post(f"{BaseEdpoint.BASE_URL}/authorize", json=auth_body)
         self.response_json = self.response.json()
         token = self.response.json()['token']

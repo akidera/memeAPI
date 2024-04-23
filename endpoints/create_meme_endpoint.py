@@ -28,7 +28,7 @@ class CreateMeme(BaseEdpoint):
 
     @allure.step('Create new meme')
     def create_meme(self, token=None, body=None):
-        body = body if body else CreateMeme.body
+        body = body if body else self.body
         self.response = requests.post(f'{BaseEdpoint.BASE_URL}/meme',
                                       headers={'Authorization': f'{token}',
                                                'Content-Type': 'application/json'},

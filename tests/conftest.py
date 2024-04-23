@@ -64,7 +64,7 @@ def del_meme():
     token = GetAuthToken().get_token()
 
     for id in meme_ids:
-        DeleteMeme().delete_meme(token=None, meme_id=id)
+        DeleteMeme().delete_meme(token=token, meme_id=id)
         print(f'\nmeme with {id} was deleted')
 
 

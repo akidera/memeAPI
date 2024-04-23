@@ -30,7 +30,7 @@ class UpdateMeme(BaseEdpoint):
 
     @allure.step('Update meme')
     def update_meme(self, token=None, meme_id=None, body=None):
-        body = body if body else UpdateMeme.body
+        body = body if body else self.body
         self.response = requests.put(f'{BaseEdpoint.BASE_URL}/meme/{meme_id}',
                                      headers={'Authorization': f'{token}',
                                               'Content-Type': 'application/json'},
