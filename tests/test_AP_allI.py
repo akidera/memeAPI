@@ -36,12 +36,14 @@ class TestMemeIsCreated(BaseTest):
         # Clean up test memes
         del_meme.append(meme1.id)
         del_meme.append(meme2.id)
+        print(auth_token)
 
     @pytest.mark.test
     @allure.feature('Get all memes')
     def test_get_all_memes_list(self, get_meme_list, auth_token):
         get_meme_list.get_meme_list(token=auth_token)
         get_meme_list.check_resp_code_is_200()
+        print(auth_token)
 
     @pytest.mark.test
     @allure.feature('Update meme')
@@ -76,6 +78,7 @@ class TestMemeIsCreated(BaseTest):
         assert update_meme.response_json['tags'] == tags
         assert update_meme.response_json['text'] == text
         assert update_meme.response_json['url'] == url
+        print(auth_token)
 
     @pytest.mark.test
     @allure.feature('Negative: Update meme not by an owner')
@@ -119,6 +122,7 @@ class TestMemeIsCreated(BaseTest):
 
         delete_meme.delete_meme(token=auth_token, meme_id=meme1.id)
         delete_meme.check_del_resp_text(meme1.id)
+        print(auth_token)
 
     @pytest.mark.test
     @allure.feature('Negative: Delete meme not by an owner')

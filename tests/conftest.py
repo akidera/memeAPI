@@ -11,20 +11,20 @@ from endpoints.BaseEndpoint import BaseEdpoint
 
 @pytest.fixture()
 def auth_token():
+    token = BaseEdpoint.token
 
     def get_new_token():
-        return GetAuthToken().get_token()
+        new = GetAuthToken().get_token()
+        BaseEdpoint.token = new
+        return BaseEdpoint.token
 
     def is_token_alive(token):
         return CheckAuthToken().check_token(token)
 
-    while True:
+    if is_token_alive(token) is False:
         token = get_new_token()
-        if is_token_alive(token):
-            break
-        yield token
-
-    yield token
+        return token
+    return token
 
 
 @pytest.fixture()
