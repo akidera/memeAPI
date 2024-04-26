@@ -81,13 +81,12 @@ class TestMemeIsCreated(BaseTest):
     @allure.feature('Negative: Update meme not by an owner')
     @pytest.mark.parametrize("colors, tags, text, url",
                              [(['green', 'black'], ['fun', 'smile'], "smiling snail", 'https://snail.smile.com/')])
-    def test_meme_update_by_not_owner(self, create_meme, get_auth_token,
+    def test_meme_update_by_not_owner(self, create_meme, get_auth_token, auth_token,
                                       create_del_meme, update_meme, delete_meme,
                                       colors, tags, text, url):
         """Test that memes can be  updated by it\'s owner"""
         # create a meme with user #1
-        token1 = get_auth_token.get_token()
-        meme = create_meme.create_meme(token=token1)
+        meme = create_meme.create_meme(token=auth_token)
         upd_body = {
             "id": meme.id,
             "info": {
@@ -108,7 +107,7 @@ class TestMemeIsCreated(BaseTest):
         update_meme.check_resp_code_is_403()
 
         # clean up this mess
-        delete_meme.delete_meme(token=token1, meme_id=meme.id)
+        delete_meme.delete_meme(token=auth_token, meme_id=meme.id)
 
     @pytest.mark.test
     @allure.feature('Delete meme')
@@ -123,10 +122,9 @@ class TestMemeIsCreated(BaseTest):
     @pytest.mark.test
     @allure.feature('Negative: Delete meme not by an owner')
     def test_meme_delete_by_not_owner(self, create_meme, delete_meme,
-                                      get_auth_token):
+                                      get_auth_token, auth_token):
         """Test that memes cannot be deleted by not an owner"""
-        token1 = get_auth_token.get_token(auth_body={"name": "Mila"})
-        meme = create_meme.create_meme(token=token1)
+        meme = create_meme.create_meme(token=auth_token)
 
         # Delete meme by not an owner
         token2 = get_auth_token.get_token(auth_body={"name": "Lola"})
@@ -134,6 +132,6 @@ class TestMemeIsCreated(BaseTest):
         delete_meme.check_resp_code_is_403()
 
         # Clean up this mess
-        delete_meme.delete_meme(token=token1, meme_id=meme.id)
+        delete_meme.delete_meme(token=auth_token, meme_id=meme.id)
         delete_meme.check_resp_code_is_200()
         delete_meme.check_del_resp_text(meme.id)
