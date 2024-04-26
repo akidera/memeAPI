@@ -33,6 +33,11 @@ def get_auth_token():
 
 
 @pytest.fixture()
+def check_auth_token():
+    return CheckAuthToken()
+
+
+@pytest.fixture()
 def create_meme():
     return CreateMeme()
 

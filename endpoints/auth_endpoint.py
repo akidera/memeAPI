@@ -19,5 +19,3 @@ class GetAuthToken(BaseEdpoint):
             assert self.response.status_code == 200
 
         return token
-
-
