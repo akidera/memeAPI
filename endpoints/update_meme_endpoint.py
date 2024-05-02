@@ -35,6 +35,8 @@ class UpdateMeme(BaseEdpoint):
                                      headers={'Authorization': f'{token}',
                                               'Content-Type': 'application/json'},
                                      json=body)
-        self.response_json = self.response.json() if self.response.ok else {}
         self.response_code = self.response.status_code
-        self.data = Meme(**self.response_json) if self.response.ok else {}
+
+        if self.response_code == 200:
+            self.response_json = self.response.json()
+            self.data = Meme(**self.response_json)
