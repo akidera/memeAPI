@@ -34,8 +34,8 @@ class CreateMeme(BaseEdpoint):
                                                'Content-Type': 'application/json'},
                                       json=body)
         self.response_code = self.response.status_code
-        self.response_json = self.response.json()
-        self.data = Meme(**self.response_json)
-        if self.response:
+        if self.response_code == 200:
+            self.response_json = self.response.json()
+            self.data = Meme(**self.response_json)
             assert self.response.status_code == 200
-        return self.data
+            return self.data

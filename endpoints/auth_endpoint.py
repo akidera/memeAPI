@@ -12,10 +12,11 @@ class GetAuthToken(BaseEdpoint):
     def get_token(self, auth_body=None):
         auth_body = auth_body if auth_body else self.auth_body
         self.response = requests.post(f"{BaseEdpoint.BASE_URL}/authorize", json=auth_body)
-        self.response_json = self.response.json()
-        token = self.response.json()['token']
+        self.response_code = self.response.status_code
 
-        if self.response:
+        if self.response_code == 200:
+            self.response_json = self.response.json()
+            token = self.response.json()['token']
             assert self.response.status_code == 200
 
-        return token
+            return token

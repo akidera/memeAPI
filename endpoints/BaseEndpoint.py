@@ -19,7 +19,7 @@ class BaseEdpoint:
     def check_resp_code_is_201(self):
         assert self.response_code == 201, 'Status code is not 201'
 
-    @allure.step('Asserting response is 201')
+    @allure.step('Asserting response is 401')
     def check_resp_code_is_401(self):
         assert self.response_code == 401, 'Status code is not 401'
 
