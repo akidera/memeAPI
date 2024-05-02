@@ -3,7 +3,6 @@ import pytest
 from tests.base_test import BaseTest
 
 
-
 class TestMemeUpdate(BaseTest):
 
     @pytest.mark.test
@@ -41,7 +40,7 @@ class TestMemeUpdate(BaseTest):
         assert update_meme.response_json['url'] == url
 
     @pytest.mark.test
-    @allure.feature('Update meme without mandatory parameters')
+    @allure.feature('Negative: Update meme without mandatory parameters')
     @pytest.mark.parametrize("body",
                              [({"id": None, "tags": [], "text": "", "url": ""}),
                               ({"id": None, "info": {}, "text": "", "url": ""}),

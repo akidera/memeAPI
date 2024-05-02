@@ -26,7 +26,7 @@ class TestAuth(BaseTest):
         assert response.status_code == 500
 
     @pytest.mark.test
-    @allure.feature('Negative auth test - invalid')
+    @allure.feature('Negative auth test - invalid auth body')
     @pytest.mark.parametrize("auth_body",
                              [({"name": 123}),
                               ({"vname": "FFFF"})])
@@ -35,6 +35,8 @@ class TestAuth(BaseTest):
         get_auth_token.get_token(auth_body=auth_body)
         get_auth_token.check_resp_is_400()
 
+    @pytest.mark.test
+    @allure.feature('Negative auth test - check invalid token')
     def test_check_invalid_token_error(self, check_auth_token):
         check_auth_token.check_token(token='123')
         check_auth_token.check_resp_code_is_404()

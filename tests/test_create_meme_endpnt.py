@@ -8,8 +8,7 @@ class TestMemeIsCreated(BaseTest, BaseEdpoint):
 
     @pytest.mark.test
     @allure.feature('Create a new meme')
-    def test_meme_creation(self, auth_token, create_meme,
-                           del_meme):
+    def test_meme_creation(self, auth_token, create_meme, del_meme):
 
         """Test that memes are created with all filled parameters"""
 
@@ -39,7 +38,7 @@ class TestMemeIsCreated(BaseTest, BaseEdpoint):
         del_meme.append(meme1.id)
 
     @pytest.mark.test
-    @allure.feature('Check mandatory fields')
+    @allure.feature('Check creating without mandatory fields')
     @pytest.mark.parametrize("body",
                              [({"tags": [], "text": "", "url": ""}),
                               ({"info": {}, "text": "", "url": ""}),
@@ -61,7 +60,7 @@ class TestMemeIsCreated(BaseTest, BaseEdpoint):
         create_meme.check_resp_code_is_401()
 
     @pytest.mark.test
-    @allure.feature('Check unauthorized request')
+    @allure.feature('Check empty token request')
     def test_check_unauthorized_request(self, create_meme):
 
         create_meme.create_meme(token="")

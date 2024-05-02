@@ -15,8 +15,8 @@ class TestDeleteMeme(BaseTest):
 
     @pytest.mark.test
     @allure.feature('Negative: Delete meme not by an owner')
-    def test_meme_delete_by_not_owner(self, create_meme, delete_meme,
-                                      get_auth_token, auth_token):
+    def test_meme_is_not_deleted_by_not_owner(self, create_meme, delete_meme,
+                                              get_auth_token, auth_token):
         """Test that memes cannot be deleted by not an owner"""
         meme = create_meme.create_meme(token=auth_token)
 
@@ -38,7 +38,7 @@ class TestDeleteMeme(BaseTest):
         delete_meme.check_resp_code_is_401()
 
     @pytest.mark.test
-    @allure.feature('Negative: Delete meme by invalid idr')
+    @allure.feature('Negative: Delete meme by invalid id')
     def test_meme_delete_invalid_id(self, delete_meme, auth_token):
         delete_meme.delete_meme(token=auth_token, meme_id='asd')
         delete_meme.check_resp_code_is_404()
