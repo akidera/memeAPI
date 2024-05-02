@@ -56,6 +56,21 @@ class TestMemeUpdate(BaseTest):
         update_meme.check_resp_is_400()
 
     @pytest.mark.test
+    @allure.feature('Negative: Update meme with invalid data types')
+    @pytest.mark.parametrize("body",
+                             [({"id": None, "text": [], "url": "", "tags": [], "info": {}}),
+                              ({"id": None, "text": "", "url": [], "tags": [], "info": {}}),
+                              ({"id": None, "text": "", "url": "", "tags": {}, "info": {}}),
+                              ({"id": None, "text": "", "url": "", "tags": [], "info": ""})
+                              ])
+    def test_meme_update_with_invalid_data_types(self, auth_token, create_del_meme,
+                                                 update_meme, body):
+        meme = create_del_meme
+        body['id'] = meme.id
+        update_meme.update_meme(token=auth_token, body=body, meme_id=meme.id)
+        update_meme.check_resp_is_400()
+
+    @pytest.mark.test
     @allure.feature('Negative: Update meme not by an owner')
     @pytest.mark.parametrize("colors, tags, text, url",
                              [(['green', 'black'], ['fun', 'smile'], "smiling snail", 'https://snail.smile.com/')])

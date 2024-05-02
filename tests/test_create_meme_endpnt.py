@@ -38,6 +38,18 @@ class TestMemeIsCreated(BaseTest, BaseEdpoint):
         del_meme.append(meme1.id)
 
     @pytest.mark.test
+    @allure.feature('Check creating with incorrect params types')
+    @pytest.mark.parametrize("body",
+                             [({"text": 123, "url": "", "tags": [], "info": {}}),
+                              ({"text": "", "url": 456, "tags": [], "info": {}}),
+                              ({"text": "", "url": "", "tags": "invalid", "info": {}}),
+                              ({"text": "", "url": "", "tags": [], "info": "invalid"})])
+    def test_check_creation_with_incorrect_data_types(self, auth_token, create_meme, body):
+
+        create_meme.create_meme(token=auth_token, body=body)
+        create_meme.check_resp_is_400()
+
+    @pytest.mark.test
     @allure.feature('Check creating without mandatory fields')
     @pytest.mark.parametrize("body",
                              [({"tags": [], "text": "", "url": ""}),
