@@ -37,7 +37,7 @@ class TestMemeIsCreated(BaseTest, BaseEdpoint):
         # Clean up test memes
         del_meme.append(meme1.id)
 
-    @pytest.mark.test
+    @pytest.mark.regression
     @allure.feature('Check creating with incorrect params types')
     @pytest.mark.parametrize("body",
                              [({"text": 123, "url": "", "tags": [], "info": {}}),
@@ -49,7 +49,7 @@ class TestMemeIsCreated(BaseTest, BaseEdpoint):
         create_meme.create_meme(token=auth_token, body=body)
         create_meme.check_resp_is_400()
 
-    @pytest.mark.test
+    @pytest.mark.regression
     @allure.feature('Check creating without mandatory fields')
     @pytest.mark.parametrize("body",
                              [({"tags": [], "text": "", "url": ""}),
@@ -64,14 +64,14 @@ class TestMemeIsCreated(BaseTest, BaseEdpoint):
         create_meme.create_meme(token=auth_token, body=body)
         create_meme.check_resp_is_400()
 
-    @pytest.mark.test
+    @pytest.mark.regression
     @allure.feature('Check invalid authorization request')
     def test_check_invalid_auth_request(self, create_meme):
 
         create_meme.create_meme(token="1")
         create_meme.check_resp_code_is_401()
 
-    @pytest.mark.test
+    @pytest.mark.regression
     @allure.feature('Check empty token request')
     def test_check_unauthorized_request(self, create_meme):
 
