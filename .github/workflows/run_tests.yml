@@ -12,6 +12,10 @@ on:
           - smoke
           - regression
           - all
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   run-tests:
@@ -45,9 +49,9 @@ jobs:
           java-version: '17'
       - name: Install Allure
         run: |
-          wget https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.tgs &&
-          tar -zxvf allure-2.29.0.tgs -C /opt/ &&
-          ln -s /opt/allure-2.29.0/bin/allure /usr/bin/allure
+          sudo wget https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.tgs &&
+          sudo tar -zxvf allure-2.29.0.tgs -C /opt/ &&
+          sudo ln -s /opt/allure-2.29.0/bin/allure /usr/bin/allure
       - name: Genetrate report
         run: allure generate -c allure-results -o _site
       - name: Save report as artifact
