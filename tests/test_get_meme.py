@@ -4,7 +4,7 @@ from tests.base_test import BaseTest
 
 
 class TestGetMemeAll(BaseTest):
-    @pytest.mark.test
+    @pytest.mark.smoke
     @allure.feature('Get all memes')
     def test_get_all_memes_list(self, get_meme_list, auth_token):
         get_meme_list.get_meme_list(token=auth_token)

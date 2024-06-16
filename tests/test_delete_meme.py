@@ -4,7 +4,7 @@ from tests.base_test import BaseTest
 
 
 class TestDeleteMeme(BaseTest):
-    @pytest.mark.test
+    @pytest.mark.smoke
     @allure.feature('Delete meme')
     def test_meme_delete(self, auth_token, create_meme, delete_meme):
         """Test that memes can be deleted by it\'s owner"""
