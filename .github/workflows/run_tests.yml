@@ -12,6 +12,7 @@ on:
           - smoke
           - regression
           - all
+          
 permissions:
   contents: read
   pages: write
