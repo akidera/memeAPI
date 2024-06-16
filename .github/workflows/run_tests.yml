@@ -10,7 +10,7 @@ on:
         default: all
         options:
           - smoke
-          - tests
+          - test
           - all
 
 jobs:
@@ -33,5 +33,5 @@ jobs:
         if: "github.event.inputs.deployment_target == 'smoke'"
         run: pytest -m smoke
       - name: Run tests tests
-        if: "github.event.inputs.deployment_target == 'tests'"
+        if: "github.event.inputs.deployment_target == 'test'"
         run: pytest - m tests
