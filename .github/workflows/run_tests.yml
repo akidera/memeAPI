@@ -10,6 +10,7 @@ on:
         default: all
         options:
           - smoke
+          - tests
           - all
 
 jobs:
@@ -26,4 +27,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run all tests
+        if: "github.event.inputs.deployemnt_target == 'all'"
         run: pytest
+      - name: Run smoke tests
+        if: "github.event.inputs.deployemnt_target == 'smoke'"
+        run: pytest -m smoke
+      - name: Run tests tests
+        if: "github.event.inputs.deployemnt_target == 'tests'"
+        run: pytest - m tests
