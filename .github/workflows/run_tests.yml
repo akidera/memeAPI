@@ -49,13 +49,13 @@ jobs:
           tar -zxvf allure-2.29.0.tgs -C /opt/ &&
           ln -s /opt/allure-2.29.0/bin/allure /usr/bin/allure
       - name: Genetrate report
-        run: allure generate -c allure-results -o allure-report
+        run: allure generate -c allure-results -o _site
       - name: Save report as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report
-          path: allure-report
-          retention-days: 2
+          name: _site
+          path: _site
+          retention-days: 1
 
   publish-report:
     name: Report publication    
