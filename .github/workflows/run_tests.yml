@@ -28,10 +28,28 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run all tests
         if: "github.event.inputs.deployment_target == 'all'"
-        run: pytest
+        run: pytest -v --alluredir=allure-results
       - name: Run smoke tests
         if: "github.event.inputs.deployment_target == 'smoke'"
-        run: pytest -m smoke
+        run: pytest -v -m smoke --alluredir=allure-results
       - name: Run tests tests
         if: "github.event.inputs.deployment_target == 'regression'"
-        run: pytest - m regression
+        run: pytes -v - m regression --alluredir=allure-results
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'microsoft'
+          java-version: '17'
+      - name: Install Allure
+        run: |
+          wget https//github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.tgs &&
+          tar -zxvf allure-2.29.0.tgs -C /opt/ &&
+          ln -s /opt/allure-2.29.0/bin/allure /usr/bin/allure
+      - name: Genetrate report
+        run: allure generate -c allure-results -o allure-report
+      - name: Save report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report
+          retentions-days: 2
