@@ -39,7 +39,7 @@ class TestMemeUpdate(BaseTest):
         assert update_meme.response_json['text'] == text
         assert update_meme.response_json['url'] == url
 
-    @pytest.mark.test
+    @pytest.mark.regression
     @allure.feature('Negative: Update meme without mandatory parameters')
     @pytest.mark.parametrize("body",
                              [({"id": None, "tags": [], "text": "", "url": ""}),
@@ -55,7 +55,7 @@ class TestMemeUpdate(BaseTest):
         update_meme.update_meme(token=auth_token, body=body, meme_id=meme.id)
         update_meme.check_resp_is_400()
 
-    @pytest.mark.test
+    @pytest.mark.regression
     @allure.feature('Negative: Update meme with invalid data types')
     @pytest.mark.parametrize("body",
                              [({"id": None, "text": [], "url": "", "tags": [], "info": {}}),
@@ -70,7 +70,7 @@ class TestMemeUpdate(BaseTest):
         update_meme.update_meme(token=auth_token, body=body, meme_id=meme.id)
         update_meme.check_resp_is_400()
 
-    @pytest.mark.test
+    @pytest.mark.regression
     @allure.feature('Negative: Update meme not by an owner')
     @pytest.mark.parametrize("colors, tags, text, url",
                              [(['green', 'black'], ['fun', 'smile'], "smiling snail", 'https://snail.smile.com/')])
@@ -102,7 +102,7 @@ class TestMemeUpdate(BaseTest):
         # clean up this mess
         delete_meme.delete_meme(token=auth_token, meme_id=meme.id)
 
-    @pytest.mark.test
+    @pytest.mark.regression
     @allure.feature('Unauthorized request - invalid token')
     def test_meme_update_unauthorized(self, create_meme, auth_token,
                                       create_del_meme, update_meme):
@@ -112,7 +112,7 @@ class TestMemeUpdate(BaseTest):
         update_meme.update_meme(token='1', meme_id=meme.id)
         update_meme.check_resp_code_is_401()
 
-    @pytest.mark.test
+    @pytest.mark.regression
     @allure.feature('Unauthorized request - invalid token')
     def test_meme_update_unauthorized(self, create_del_meme, update_meme):
         meme = create_del_meme
@@ -120,7 +120,7 @@ class TestMemeUpdate(BaseTest):
         update_meme.update_meme(token='1', meme_id=meme.id)
         update_meme.check_resp_code_is_401()
 
-    @pytest.mark.test
+    @pytest.mark.regression
     @allure.feature('Update meme by invalid id')
     def test_meme_update_invalid_id(self, auth_token, update_meme):
 

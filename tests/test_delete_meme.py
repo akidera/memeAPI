@@ -13,7 +13,7 @@ class TestDeleteMeme(BaseTest):
         delete_meme.delete_meme(token=auth_token, meme_id=meme1.id)
         delete_meme.check_del_resp_text(meme1.id)
 
-    @pytest.mark.test
+    @pytest.mark.regression
     @allure.feature('Negative: Delete meme not by an owner')
     def test_meme_is_not_deleted_by_not_owner(self, create_meme, delete_meme,
                                               get_auth_token, auth_token):
@@ -30,14 +30,14 @@ class TestDeleteMeme(BaseTest):
         delete_meme.check_resp_code_is_200()
         delete_meme.check_del_resp_text(meme.id)
 
-    @pytest.mark.test
+    @pytest.mark.regression
     @allure.feature('Send unauthorized request')
     def test_meme_delete_unauthorized(self,  delete_meme):
 
         delete_meme.delete_meme(token='1', meme_id='asd')
         delete_meme.check_resp_code_is_401()
 
-    @pytest.mark.test
+    @pytest.mark.regression
     @allure.feature('Negative: Delete meme by invalid id')
     def test_meme_delete_invalid_id(self, delete_meme, auth_token):
         delete_meme.delete_meme(token=auth_token, meme_id='asd')
