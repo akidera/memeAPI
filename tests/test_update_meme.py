@@ -5,7 +5,7 @@ from tests.base_test import BaseTest
 
 class TestMemeUpdate(BaseTest):
 
-    @pytest.mark.test
+    @pytest.mark.smoke
     @allure.feature('Update meme')
     @pytest.mark.parametrize("colors, tags, text, url",
                              [(['green', 'black'], ['fun', 'smile'], "smiling snail", 'https://snail.smile.com/'),
