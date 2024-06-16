@@ -6,7 +6,7 @@ from endpoints.BaseEndpoint import BaseEdpoint
 
 class TestMemeIsCreated(BaseTest, BaseEdpoint):
 
-    @pytest.mark.test
+    @pytest.mark.smoke
     @allure.feature('Create a new meme')
     def test_meme_creation(self, auth_token, create_meme, del_meme):
 
